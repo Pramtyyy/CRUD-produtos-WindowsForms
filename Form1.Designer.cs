@@ -63,12 +63,14 @@
             this.precoDataGridViewTextBoxColumn,
             this.quantidadeDataGridViewTextBoxColumn});
             this.dgvProdutos.DataSource = this.produtosBindingSource;
-            this.dgvProdutos.Location = new System.Drawing.Point(12, 12);
+            this.dgvProdutos.Location = new System.Drawing.Point(9, 10);
+            this.dgvProdutos.Margin = new System.Windows.Forms.Padding(2);
             this.dgvProdutos.Name = "dgvProdutos";
             this.dgvProdutos.RowHeadersWidth = 51;
             this.dgvProdutos.RowTemplate.Height = 24;
-            this.dgvProdutos.Size = new System.Drawing.Size(738, 426);
+            this.dgvProdutos.Size = new System.Drawing.Size(554, 346);
             this.dgvProdutos.TabIndex = 0;
+            this.dgvProdutos.SelectionChanged += new System.EventHandler(this.dgvProdutos_SelectionChanged);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -119,31 +121,38 @@
             // 
             // txtPreco
             // 
-            this.txtPreco.Location = new System.Drawing.Point(885, 58);
+            this.txtPreco.Location = new System.Drawing.Point(664, 47);
+            this.txtPreco.Margin = new System.Windows.Forms.Padding(2);
             this.txtPreco.Name = "txtPreco";
-            this.txtPreco.Size = new System.Drawing.Size(100, 22);
+            this.txtPreco.Size = new System.Drawing.Size(76, 20);
             this.txtPreco.TabIndex = 1;
+            this.txtPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreco_KeyPress);
             // 
             // txtNome
             // 
-            this.txtNome.Location = new System.Drawing.Point(885, 14);
+            this.txtNome.Location = new System.Drawing.Point(664, 11);
+            this.txtNome.Margin = new System.Windows.Forms.Padding(2);
             this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(100, 22);
+            this.txtNome.Size = new System.Drawing.Size(76, 20);
             this.txtNome.TabIndex = 2;
+            this.txtNome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNome_KeyPress);
             // 
             // txtQuantidade
             // 
-            this.txtQuantidade.Location = new System.Drawing.Point(910, 109);
+            this.txtQuantidade.Location = new System.Drawing.Point(682, 89);
+            this.txtQuantidade.Margin = new System.Windows.Forms.Padding(2);
             this.txtQuantidade.Name = "txtQuantidade";
-            this.txtQuantidade.Size = new System.Drawing.Size(75, 22);
+            this.txtQuantidade.Size = new System.Drawing.Size(57, 20);
             this.txtQuantidade.TabIndex = 3;
+            this.txtQuantidade.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuantidade_KeyPress);
             // 
             // btnAdicionar
             // 
             this.btnAdicionar.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnAdicionar.Location = new System.Drawing.Point(804, 167);
+            this.btnAdicionar.Location = new System.Drawing.Point(603, 136);
+            this.btnAdicionar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdicionar.Name = "btnAdicionar";
-            this.btnAdicionar.Size = new System.Drawing.Size(75, 30);
+            this.btnAdicionar.Size = new System.Drawing.Size(56, 24);
             this.btnAdicionar.TabIndex = 4;
             this.btnAdicionar.Text = "Adicionar";
             this.btnAdicionar.UseVisualStyleBackColor = false;
@@ -152,9 +161,10 @@
             // btnEditar
             // 
             this.btnEditar.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnEditar.Location = new System.Drawing.Point(910, 167);
+            this.btnEditar.Location = new System.Drawing.Point(682, 136);
+            this.btnEditar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(75, 30);
+            this.btnEditar.Size = new System.Drawing.Size(56, 24);
             this.btnEditar.TabIndex = 5;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = false;
@@ -163,9 +173,10 @@
             // btnExcluir
             // 
             this.btnExcluir.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnExcluir.Location = new System.Drawing.Point(804, 245);
+            this.btnExcluir.Location = new System.Drawing.Point(603, 199);
+            this.btnExcluir.Margin = new System.Windows.Forms.Padding(2);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 30);
+            this.btnExcluir.Size = new System.Drawing.Size(56, 24);
             this.btnExcluir.TabIndex = 6;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = false;
@@ -174,9 +185,10 @@
             // btnLimpar
             // 
             this.btnLimpar.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnLimpar.Location = new System.Drawing.Point(910, 245);
+            this.btnLimpar.Location = new System.Drawing.Point(682, 199);
+            this.btnLimpar.Margin = new System.Windows.Forms.Padding(2);
             this.btnLimpar.Name = "btnLimpar";
-            this.btnLimpar.Size = new System.Drawing.Size(75, 30);
+            this.btnLimpar.Size = new System.Drawing.Size(56, 24);
             this.btnLimpar.TabIndex = 7;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
@@ -185,36 +197,39 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(801, 20);
+            this.label1.Location = new System.Drawing.Point(601, 16);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "Nome:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(801, 64);
+            this.label2.Location = new System.Drawing.Point(601, 52);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 16);
+            this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Preço:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(801, 115);
+            this.label3.Location = new System.Drawing.Point(601, 93);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 16);
+            this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 10;
             this.label3.Text = "Quantidade:";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OliveDrab;
-            this.ClientSize = new System.Drawing.Size(997, 450);
+            this.ClientSize = new System.Drawing.Size(815, 366);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -226,6 +241,7 @@
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.txtPreco);
             this.Controls.Add(this.dgvProdutos);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

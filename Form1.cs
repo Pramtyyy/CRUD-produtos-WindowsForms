@@ -15,7 +15,7 @@ namespace CRUD_produtos
     {
 
         string connectionString = "Data Source=COMPUTADOR;Initial Catalog=CRUD;Integrated Security=True;Encrypt=False";
-
+        private ErrorProvider errorProvider = new ErrorProvider();
         public Form1()
         {
             InitializeComponent();
@@ -45,25 +45,33 @@ namespace CRUD_produtos
 
         private void AdicionarProdutos()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                string query = "INSERT INTO Produtos (Nome, Preco, Quantidade) VALUES (@Nome, @Preco, @Quantidade)";
-                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
 
-                cmd.Parameters.AddWithValue("@Nome", txtNome.Text);
-                cmd.Parameters.AddWithValue("@Preco", decimal.Parse(txtPreco.Text));
-                cmd.Parameters.AddWithValue("@Quantidade", int.Parse(txtQuantidade.Text));
+                    string query = "INSERT INTO Produtos (Nome, Preco, Quantidade) VALUES (@Nome, @Preco, @Quantidade)";
+                    SqlCommand cmd = new SqlCommand(query, conn);
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                    cmd.Parameters.AddWithValue("@Nome", txtNome.Text);
+                    cmd.Parameters.AddWithValue("@Preco", decimal.Parse(txtPreco.Text));
+                    cmd.Parameters.AddWithValue("@Quantidade", int.Parse(txtQuantidade.Text));
 
-                CarregarProdutos();
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                    CarregarProdutos();
+                }
             }
+            catch (SqlException ex) {
+                throw new
+                Exception("Erro ao se conectar ao banco de dados: " + ex.Message); }
         }
 
         private void EditarProduto(int id)
         {
+            try { 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "UPDATE Produtos SET Nome = @Nome, Preco = @Preco, Quantidade = @Quantidade WHERE Id = @Id";
@@ -80,11 +88,18 @@ namespace CRUD_produtos
 
                 CarregarProdutos();
             }
+            }
+            catch (SqlException ex)
+            {
+                throw new
+                Exception("Erro ao se conectar ao banco de dados: " + ex.Message);
+            }
 
         }
 
         private void ExcluirProduto(int id)
         {
+            try { 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "DELETE FROM Produtos WHERE Id = @Id";
@@ -101,21 +116,56 @@ namespace CRUD_produtos
                 
 
             }
-
+            }
+            catch (SqlException ex)
+            {
+                throw new
+                Exception("Erro ao se conectar ao banco de dados: " + ex.Message);
+            }
         }
+
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
+
+
+                if (string.IsNullOrWhiteSpace(txtNome.Text))
+                {
+                    errorProvider.SetError(txtNome, "Este campo e obrigatorio");
+                }
+
+                if (string.IsNullOrWhiteSpace(txtPreco.Text))
+                {
+                    errorProvider.SetError(txtPreco, "Este campo e obrigatorio");
+                }
+
+                if (string.IsNullOrWhiteSpace(txtQuantidade.Text))
+                {
+                    errorProvider.SetError(txtQuantidade, "Este campo e obrigatorio");
+                }
+            else { 
+                errorProvider.SetError(txtNome, "");
+                errorProvider.SetError(txtPreco, "");
+                errorProvider.SetError(txtQuantidade, "");
             AdicionarProdutos();
+            txtNome.Clear();
+            txtPreco.Clear();
+            txtQuantidade.Clear();
+            }
         }
+
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
             if(dgvProdutos.SelectedRows.Count > 0)
             {
+
                 int id = Convert.ToInt32(dgvProdutos.SelectedRows[0].Cells[0].Value);
                 
                 EditarProduto(id);
+                txtNome.Clear();
+                txtPreco.Clear();
+                txtQuantidade.Clear();
             }
         }
 
@@ -134,6 +184,50 @@ namespace CRUD_produtos
             txtNome.Clear();
             txtPreco.Clear();
             txtQuantidade.Clear();
+        }
+
+        private void txtNome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPreco_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(char.IsLetter(e.KeyChar)) { e.Handled = true; }
+        }
+
+        private void txtQuantidade_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsLetter(e.KeyChar)) { e.Handled = true; }
+        }
+
+        private void dgvProdutos_SelectionChanged(object sender, EventArgs e)
+        {
+            if(dgvProdutos.SelectedRows.Count > 0)
+            {
+                    var row = dgvProdutos.SelectedRows[0];
+                    if (row.Cells[1].Value != null)
+                    {
+                        txtNome.Text = row.Cells[1].Value.ToString();
+                    }
+
+                    if (row.Cells[2].Value != null)
+                    {
+                        txtPreco.Text = row.Cells[2].Value.ToString();
+                    }
+
+                    if (row.Cells[3].Value != null)
+                    {
+                        txtQuantidade.Text = row.Cells[3].Value.ToString();
+                    }
+                
+                txtNome.Text = dgvProdutos.SelectedRows[0].Cells[1].Value.ToString();
+                txtPreco.Text = dgvProdutos.SelectedRows[0].Cells[2].Value.ToString();
+                txtQuantidade.Text = dgvProdutos.SelectedRows[0].Cells[3].Value.ToString();
+            }
         }
     }
 }
